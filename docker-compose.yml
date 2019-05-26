@@ -1,0 +1,8 @@
+version: '2'
+services:
+  oray:
+    build: ./
+    image: oray 
+    restart: always
+    container_name: oray
+    network_mode: host
