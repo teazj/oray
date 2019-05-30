@@ -1,10 +1,9 @@
-FROM ubuntu:latest
-add phddns.deb /tmp/hddns.deb
+FROM centos:latest
+add phddns-3.0.2.x86_64.rpm /tmp/phddns-3.0.2.x86_64.rpm
 ENV ORAY_HOME /usr/local/oray
-RUN mkdir -p ${ORAY_HOME} \
-    && mkdir -p /tmp/ \
-    && dpkg -i /tmp/hddns.deb && rm /tmp/hddns.deb \
-    && apt-get update && apt-get install -y supervisor
+RUN rpm -ivh /tmp/phddns-3.0.2.x86_64.rpm && rm -rf /tmp/* \
+    && yum install -y epel-release \
+    && yum install -y supervisor
 ADD supervisord.conf /supervisord.conf
 COPY /supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 EXPOSE 6060
